@@ -97,6 +97,10 @@ echo "[ZARAFA] REPLACING MYSQL PASSWORD"
 sed -i 's/^mysql_password.*/mysql_password = '${LB_MYSQL_PASSWORD}'/g' /etc/zarafa/server.cfg
 sed -i 's/^ldap_bind_passwd.*/ldap_bind_passwd = '${LB_LDAP_PASSWORD}'/g' /etc/zarafa/ldap.cfg
 
+# (ZARAFA) INSERTING ZARAFA LICENSE
+echo "[ZARAFA] INSERTING LICENSE"
+echo ${LB_ZARAFA_LICENSE} > /etc/zarafa/license/base
+
 # (FETCHMAIL) Add fetchmailrc and Cronjob
 echo "[FETCHMAIL] Adding fetchmailrc and cronjob"
 touch /etc/fetchmailrc
