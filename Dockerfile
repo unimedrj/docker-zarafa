@@ -23,10 +23,7 @@ ENV LB_RELAYHOST_PASSWORD BarAuthPassword
 # ENV LB_ZARAFA_LICENSE 12345123451234512345
 
 # Install additional Software
-RUN DEBIAN_FRONTEND=noninteractive apt-get -yqq install supervisor ssh fetchmail postfix amavisd-new clamav-daemon spamassassin razor pyzor slapd ldap-utils phpldapadmin
-
-# Copy Supervisor Config
-COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+RUN DEBIAN_FRONTEND=noninteractive apt-get -yqq install ssh fetchmail postfix amavisd-new clamav-daemon spamassassin razor pyzor slapd ldap-utils phpldapadmin supervisor
 
 # Add configuration files
 ADD 15-content_filter_mode /etc/amavis/conf.d/15-content_filter_mode
@@ -42,8 +39,8 @@ ADD init.sh /usr/local/bin/init.sh
 RUN chmod 777 /usr/local/bin/init.sh
 RUN /usr/local/bin/init.sh
 
-CMD ["/usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf"]
+# Autostart
+ADD entry.sh /usr/local/bin/entry.sh
+CMD ["/usr/local/bin/entry.sh"]
 
 ENTRYPOINT ["/bin/bash"]
-
-
