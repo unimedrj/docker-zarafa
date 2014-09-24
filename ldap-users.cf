@@ -1,0 +1,6 @@
+server_host = 127.0.0.1
+search_base = ou=Zarafa,dc=REPLACE,dc=ME
+version = 3
+scope = sub
+query_filter = (&(objectClass=posixAccount)(mail=%s))
+result_attribute = mail
