@@ -12,8 +12,8 @@ rm -rf /var/lib/ldap/*
 echo "[LDAP] SETTING NEW CONFIGURATION VALUES"
 echo "slapd slapd/password1 password ${LB_LDAP_PASSWORD}" | debconf-set-selections
 echo "slapd slapd/password2 password ${LB_LDAP_PASSWORD}" | debconf-set-selections
-#echo "slapd slapd/internal/adminpw password ${LB_LDAP_PASSWORD}" | debconf-set-selections
-#echo "slapd slapd/internal/generated_adminpw passowrd ${LB_LDAP_PASSWORD}" | debconf-set-selections
+echo "slapd slapd/internal/adminpw password ${LB_LDAP_PASSWORD}" | debconf-set-selections
+echo "slapd slapd/internal/generated_adminpw passowrd ${LB_LDAP_PASSWORD}" | debconf-set-selections
 echo "slapd slapd/allow_ldap_v2 boolean false" | debconf-set-selections
 echo "slapd slapd/invalid_config boolean true" | debconf-set-selections
 echo "slapd slapd/move_old_database boolean false" | debconf-set-selections
@@ -89,11 +89,13 @@ sed -i 's/^search_base.*/search_base = ou=Zarafa,'${LB_LDAP_DN}'/g' /etc/postfix
 echo "[ZARAFA] REPLACING LDAP SETTINGS"
 mv /etc/zarafa/ldap.openldap.cfg /etc/zarafa/ldap.cfg
 sed -i 's/^ldap_search_base.*/ldap_search_base = ou=Zarafa,'${LB_LDAP_DN}'/g' /etc/zarafa/ldap.cfg
+sed -i 's/^ldap_bind_user.*/ldap_bind_user = cn=admin,'${LB_LDAP_DN}'/g' /etc/zarafa/ldap.cfg
 sed -i 's/^user_plugin.*/user_plugin = ldap/g' /etc/zarafa/server.cfg
 
-# (ZARAFA) REPLACING MYSQL PASSWORD
+# (ZARAFA) REPLACING MYSQL & LDAP PASSWORD
 echo "[ZARAFA] REPLACING MYSQL PASSWORD"
 sed -i 's/^mysql_password.*/mysql_password = '${LB_MYSQL_PASSWORD}'/g' /etc/zarafa/server.cfg
+sed -i 's/^ldap_bind_passwd.*/ldap_bind_passwd = '${LB_LDAP_PASSWORD}'/g' /etc/zarafa/ldap.cfg
 
 # (FETCHMAIL) Add fetchmailrc and Cronjob
 echo "[FETCHMAIL] Adding fetchmailrc and cronjob"
@@ -111,6 +113,10 @@ a2ensite zarafa-webaccess
 a2ensite zarafa-webapp
 a2ensite phpldapadmin
 
+# (PHPLDAPADMIN) Edit config.php
+echo "[PHPLDAPADMIN] Editing config.php"
+sed -i 's/dc=example,dc=com/'${LB_LDAP_DN}'/g' /etc/phpldapadmin/config.php
+
 # (SYSTEM) SET ROOT PASSWORD
 echo "[SYSTEM] SETTING NEW ROOT PASSWORD"
 echo "root:${LB_ROOT_PASSWORD}" | chpasswd
@@ -118,14 +124,6 @@ echo "root:${LB_ROOT_PASSWORD}" | chpasswd
 # (Clamav) Refreshing Clamav database
 echo "[Clamav] Refreshing Clamav database (be patient ...)"
 #freshclam
-
-# (SYSTEM) START SERVICES
-#echo "[SYSTEM] STARTING SERVICES"
-#STARTUP="ssh apache2 amavis spamassassin clamav-daemon postfix slapd"
-#ZARAFA="/etc/init.d/zarafa-*"
-
-#for daemon in $STARTUP; do echo "Starting $daemon"; /etc/init.d/$daemon restart; done
-#for zarafa in $ZARAFA; do echo "Starting $zarafa"; $zarafa restart; done
 
 # FINISHED
 echo "SETUP FINISHED! Now run your new Zarafa Contrainer!"
