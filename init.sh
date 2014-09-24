@@ -117,7 +117,7 @@ echo "root:${LB_ROOT_PASSWORD}" | chpasswd
 
 # (Clamav) Refreshing Clamav database
 echo "[Clamav] Refreshing Clamav database (be patient ...)"
-freshclam
+#freshclam
 
 # (SYSTEM) START SERVICES
 #echo "[SYSTEM] STARTING SERVICES"
