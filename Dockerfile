@@ -44,4 +44,11 @@ RUN /usr/local/bin/init.sh
 ADD entry.sh /usr/local/bin/entry.sh
 CMD ["/usr/local/bin/entry.sh"]
 
+EXPOSE 10236 236
+EXPOSE 10237 237
+EXPOSE 10022 22
+EXPOSE 10080 80
+EXPOSE 10443 443
+# EXPOSE 10389 389
+
 ENTRYPOINT ["/bin/bash"]
