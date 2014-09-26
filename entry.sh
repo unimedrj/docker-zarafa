@@ -9,3 +9,5 @@ service apache2 start
 service cron start
 
 for z in /etc/init.d/zarafa-*; do $z start; done
+
+/bin/bash
