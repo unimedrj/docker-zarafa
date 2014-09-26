@@ -23,7 +23,7 @@ ENV LB_RELAYHOST_PASSWORD BarAuthPassword
 # ENV LB_ZARAFA_LICENSE 12345123451234512345
 
 # Install additional Software
-RUN DEBIAN_FRONTEND=noninteractive apt-get -q update && apt-get -yqq install ssh fetchmail postfix postfix-ldap amavisd-new clamav-daemon spamassassin razor pyzor slapd ldap-utils phpldapadmin
+RUN DEBIAN_FRONTEND=noninteractive apt-get -q update && apt-get -yqq install ssh fetchmail postfix postfix-ldap amavisd-new clamav-daemon spamassassin razor pyzor slapd ldap-utils phpldapadmin php5-cli php-soap
 
 # Add configuration files
 ADD 15-content_filter_mode /etc/amavis/conf.d/15-content_filter_mode
@@ -33,6 +33,7 @@ ADD ldap-users.cf /etc/postfix/ldap-users.cf
 ADD main.cf /etc/postfix/main.cf
 ADD master.cf /etc/postfix/master.cf
 ADD ldap.ldif /usr/local/bin/ldap.ldif
+ADD z-push.conf /etc/apache2/sites-available/z-push.conf
 
 # Add init-Script and run it
 ADD init.sh /usr/local/bin/init.sh
