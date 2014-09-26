@@ -18,7 +18,7 @@ you should be able to...
     - http://domain_or_ip/webaccess
     - http://domain_or_ip/phplapadmin
   - access `zarafa` via `Outlook` (be sure you have installed `zarafaclient`)
-  - 
+  - access with your mobile device and ActiveSync (Port 80)
 
 
 ## Roadmap ##
