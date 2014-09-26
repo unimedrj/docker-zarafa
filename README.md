@@ -22,6 +22,5 @@ you should be able to...
 
 
 ## Roadmap ##
-  - install `z-push` for Active-Sync
-  - `EXPOSE` ports
+  - add SSL-Support for Apache and Zarafa
   - fix my startup workaround
