@@ -108,7 +108,17 @@ chmod 0700 /etc/fetchmailrc && chown postfix /etc/fetchmailrc
 cronline="*/5 * * * * su postfix -c '/usr/bin/fetchmail -f /etc/fetchmailrc'"
 (crontab -u root -l; echo "${cronline}" ) | crontab -u root -
 
-# (APACHE) Enable PhpLDAPadmin and Zarafa Webaccess/Webapp
+# (Z-PUSH) Download and install Z-Push
+echo "[Z-PUSH] Downloading and installing Z-Push"
+curl http://download.z-push.org/final/2.1/z-push-2.1.3-1892.tar.gz | tar -xz -C /usr/share/
+mv /usr/share/z-push-* /usr/share/z-push
+mkdir /var/lib/z-push /var/log/z-push
+chmod 755 /var/lib/z-push /var/log/z-push
+chown www-data:www-data /var/lib/z-push /var/log/z-push
+ln -s /usr/share/z-push/z-push-admin.php /usr/sbin/z-push-admin
+ln -s /usr/share/z-push/z-push-top.php /usr/sbin/z-push-top
+
+# (APACHE) Enable PhpLDAPadmin, Zarafa Webaccess/Webapp and Z-Push
 mv /etc/apache2/sites-available/zarafa-webaccess /etc/apache2/sites-available/zarafa-webaccess.conf
 mv /etc/apache2/sites-available/zarafa-webapp /etc/apache2/sites-available/zarafa-webapp.conf
 cp /etc/phpldapadmin/apache.conf /etc/apache2/sites-available/phpldapadmin.conf
@@ -116,6 +126,11 @@ cp /etc/phpldapadmin/apache.conf /etc/apache2/sites-available/phpldapadmin.conf
 a2ensite zarafa-webaccess
 a2ensite zarafa-webapp
 a2ensite phpldapadmin
+a2ensite z-push
+
+# (APACHE) Put zarafaclient into /var/www/html
+echo > /var/www/html/index.html
+mv /root/windows/zarafaclient* /var/www/html/zarafaclient.msi
 
 # (PHPLDAPADMIN) Edit config.php
 echo "[PHPLDAPADMIN] Editing config.php"
