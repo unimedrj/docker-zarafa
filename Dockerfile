@@ -23,7 +23,7 @@ ENV LB_RELAYHOST_PASSWORD BarAuthPassword
 # ENV LB_ZARAFA_LICENSE 12345123451234512345
 
 # Install additional Software
-RUN DEBIAN_FRONTEND=noninteractive apt-get -q update && apt-get -yqq install ssh fetchmail postfix amavisd-new clamav-daemon spamassassin razor pyzor slapd ldap-utils phpldapadmin
+RUN DEBIAN_FRONTEND=noninteractive apt-get -q update && apt-get -yqq install ssh fetchmail postfix postfix-ldap amavisd-new clamav-daemon spamassassin razor pyzor slapd ldap-utils phpldapadmin
 
 # Add configuration files
 ADD 15-content_filter_mode /etc/amavis/conf.d/15-content_filter_mode
