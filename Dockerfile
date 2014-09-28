@@ -3,6 +3,7 @@ MAINTAINER Tobias Mandjik <webmaster@leckerbeef.de>
 
 # noninteractive Installation (dont't touch this)
 ENV DEBIAN_FRONTEND noninteractive
+ENV FIRSTRUN yes
 
 # Password Settings
 ENV LB_ROOT_PASSWORD topSecret
@@ -38,9 +39,9 @@ ADD z-push.conf /etc/apache2/sites-available/z-push.conf
 # Add init-Script and run it
 ADD init.sh /usr/local/bin/init.sh
 RUN chmod 777 /usr/local/bin/init.sh
-RUN /usr/local/bin/init.sh
+RUN echo "y" > /usr/local/bin/firstrun
 
-# Autostart
+# Entryscript
 ADD entry.sh /usr/local/bin/entry.sh
 CMD ["/usr/local/bin/entry.sh"]
 
@@ -49,6 +50,6 @@ EXPOSE 10237 237
 EXPOSE 10022 22
 EXPOSE 10080 80
 EXPOSE 10443 443
-# EXPOSE 10389 389
+EXPOSE 10389 389
 
 ENTRYPOINT ["/bin/bash"]

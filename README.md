@@ -9,7 +9,14 @@ This is an automated build from latest `leckerbeef/zarafabase`.
   - `ssh` > for remote Access
   - `fetchmail` > Fetch Mails from your Provider
 
-## After Successful Build ##
+## Prepare Dockerfile ##
+just change the ENV variables
+
+For multiple containers with different variables use the `env.conf` and pass it to the `run` command:
+
+`docker run -it --env-file=env.conf <imageID>`
+
+## After Successful Setup, Build & Run ##
 you should be able to...
 
   - view the userlist on console with `zarfa-admin -l` (you see a `templateuser`, password is `abcde`)
@@ -19,7 +26,6 @@ you should be able to...
     - http://domain_or_ip/phplapadmin
   - access `zarafa` via `Outlook` (be sure you have installed `zarafaclient`)
   - access with your mobile device and ActiveSync (Port 80)
-
 
 ## Roadmap ##
   - add SSL-Support for Apache and Zarafa

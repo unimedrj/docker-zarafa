@@ -142,7 +142,10 @@ echo "root:${LB_ROOT_PASSWORD}" | chpasswd
 
 # (Clamav) Refreshing Clamav database
 echo "[Clamav] Refreshing Clamav database (be patient ...)"
-freshclam --quiet --stdout
+freshclam --stdout
 
 # FINISHED
-echo "SETUP FINISHED! Now run your new Zarafa Contrainer!"
+echo ""
+echo "SETUP FINISHED!"
+echo ""
+export FIRSTRUN=no
