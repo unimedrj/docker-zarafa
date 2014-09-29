@@ -14,6 +14,9 @@ ENV LB_MYSQL_PASSWORD topSecret
 
 # Uncomment to use external MySQL-Server
 # used password is LB_MYSQL_PASSWORD
+#
+# This feature is not supported at the
+# moment
 #ENV LB_EXT_MYSQL yes
 #ENV LB_EXT_MYSQL_SERVER 172.27.0.1
 #ENV LB_EXT_MYSQL_PORT 3306
