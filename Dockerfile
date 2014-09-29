@@ -52,7 +52,7 @@ ADD /config/apache/z-push.conf /etc/apache2/sites-available/z-push.conf
 # Add init-Script
 ADD /script/init.sh /usr/local/bin/init.sh
 RUN chmod 777 /usr/local/bin/init.sh
-RUN echo "y" > /usr/local/bin/firstrun
+RUN echo "yes" > /usr/local/bin/firstrun
 
 # Entry-Script
 ADD /script/entry.sh /usr/local/bin/entry.sh
