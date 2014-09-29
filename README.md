@@ -30,3 +30,12 @@ you should be able to...
 ## Roadmap ##
   - add SSL-Support for Apache and Zarafa
   - fix my startup workaround
+
+## Developer Homepage ##
+
+View the articel on the developers homepage:
+
+[leckerbeef.de/posts/zarafa-docker-container][1]
+
+
+  [1]: http://leckerbeef.de/posts/zarafa-docker-container

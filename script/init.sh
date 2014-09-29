@@ -45,12 +45,14 @@ ldapadd -x -D cn=admin,${LB_LDAP_DN} -w ${LB_LDAP_PASSWORD} -f $ldif
 echo "[SSH] REGENERATING SSH HOST-KEY"
 rm -v /etc/ssh/ssh_host_*
 dpkg-reconfigure openssh-server
+sed -i 's/^PermitRootLogin.*/PermitRootLogin yes/g' /etc/ssh/sshd_config
 
 # (MYSQL) UPDATE ROOT-USER PASSWORD
 echo "[MySQL] STARTING MySQL SERVER"
 mysqld_safe &
 echo "[MYSQL] SETTING NEW ROOT PASSWORD"
-sleep 5s && mysqladmin -u root password ${LB_MYSQL_PASSWORD}
+sleep 10s && mysqladmin -u root password ${LB_MYSQL_PASSWORD}
+mysqlcheck --all-databases -uroot -p${LB_MYSQL_PASSWORD}
 
 # (AMAVIS) SET DOMAIN NAME
 echo "[AMAVIS] SETTING DOMAIN NAME"

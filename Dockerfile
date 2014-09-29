@@ -5,10 +5,20 @@ MAINTAINER Tobias Mandjik <webmaster@leckerbeef.de>
 ENV DEBIAN_FRONTEND noninteractive
 ENV FIRSTRUN yes
 
-# Password Settings
+# Password Settings (root User and LDAP)
 ENV LB_ROOT_PASSWORD topSecret
 ENV LB_LDAP_PASSWORD topSecret
+
+# MySQL Settings
 ENV LB_MYSQL_PASSWORD topSecret
+
+# Uncomment to use external MySQL-Server
+# used password is LB_MYSQL_PASSWORD
+#ENV LB_EXT_MYSQL yes
+#ENV LB_EXT_MYSQL_SERVER 172.27.0.1
+#ENV LB_EXT_MYSQL_PORT 3306
+#ENV LB_EXT_MYSQL_USER root
+#ENV LB_EXT_MYSQL_DB zarafaExt
 
 # Maildomain Settings
 ENV LB_LDAP_DN dc=mydomain,dc=net
@@ -21,30 +31,31 @@ ENV LB_RELAYHOST_PASSWORD BarAuthPassword
 
 # Zarafa License (25 Digits)
 # uncommented if you have a commercial license
-# ENV LB_ZARAFA_LICENSE 12345123451234512345
+#ENV LB_ZARAFA_LICENSE 12345123451234512345
 
 # Install additional Software
 RUN DEBIAN_FRONTEND=noninteractive apt-get -q update && apt-get -yqq install ssh fetchmail postfix postfix-ldap amavisd-new clamav-daemon spamassassin razor pyzor slapd ldap-utils phpldapadmin php5-cli php-soap
 
 # Add configuration files
-ADD 15-content_filter_mode /etc/amavis/conf.d/15-content_filter_mode
-ADD 20-debian_defaults /etc/amavis/conf.d/20-debian_defaults
-ADD ldap-aliases.cf /etc/postfix/ldap-aliases.cf
-ADD ldap-users.cf /etc/postfix/ldap-users.cf
-ADD main.cf /etc/postfix/main.cf
-ADD master.cf /etc/postfix/master.cf
-ADD ldap.ldif /usr/local/bin/ldap.ldif
-ADD z-push.conf /etc/apache2/sites-available/z-push.conf
+ADD /config/amavis/15-content_filter_mode /etc/amavis/conf.d/15-content_filter_mode
+ADD /config/amavis/20-debian_defaults /etc/amavis/conf.d/20-debian_defaults
+ADD /config/postfix/ldap-aliases.cf /etc/postfix/ldap-aliases.cf
+ADD /config/postfix/ldap-users.cf /etc/postfix/ldap-users.cf
+ADD /config/postfix/main.cf /etc/postfix/main.cf
+ADD /config/postfix/master.cf /etc/postfix/master.cf
+ADD /config/ldap/ldap.ldif /usr/local/bin/ldap.ldif
+ADD /config/apache/z-push.conf /etc/apache2/sites-available/z-push.conf
 
-# Add init-Script and run it
-ADD init.sh /usr/local/bin/init.sh
+# Add init-Script
+ADD /script/init.sh /usr/local/bin/init.sh
 RUN chmod 777 /usr/local/bin/init.sh
 RUN echo "y" > /usr/local/bin/firstrun
 
-# Entryscript
-ADD entry.sh /usr/local/bin/entry.sh
+# Entry-Script
+ADD /script/entry.sh /usr/local/bin/entry.sh
 CMD ["/usr/local/bin/entry.sh"]
 
+# Expose Ports
 EXPOSE 10236 236
 EXPOSE 10237 237
 EXPOSE 10022 22
@@ -52,4 +63,5 @@ EXPOSE 10080 80
 EXPOSE 10443 443
 EXPOSE 10389 389
 
+# Set Entrypoint
 ENTRYPOINT ["/bin/bash"]
