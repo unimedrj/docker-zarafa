@@ -99,6 +99,24 @@ echo "[ZARAFA] REPLACING MYSQL PASSWORD"
 sed -i 's/^mysql_password.*/mysql_password = '${LB_MYSQL_PASSWORD}'/g' /etc/zarafa/server.cfg
 sed -i 's/^ldap_bind_passwd.*/ldap_bind_passwd = '${LB_LDAP_PASSWORD}'/g' /etc/zarafa/ldap.cfg
 
+# (ZARAFA) Setup external MySQL-Server
+if [[ ${LB_EXT_MYSQL} == "yes" ]]; then
+    echo "[ZARAFA] Setting up external MySQL-Server"
+    sed -i 's/^mysql_host.*/mysql_host = '${LB_EXT_MYSQL_SERVER}'/g' /etc/zarafa/server.cfg
+    sed -i 's/^mysql_port.*/mysql_port = '${LB_EXT_MYSQL_PORT}'/g' /etc/zarafa/server.cfg
+    sed -i 's/^mysql_database.*/mysql_database = '${LB_EXT_MYSQL_DB}'/g' /etc/zarafa/server.cfg
+    sed -i 's/^mysql_user.*/mysql_user = '${LB_EXT_MYSQL_USER}'/g' /etc/zarafa/server.cfg
+
+    echo "[MYSQL] Removing pre-installed MySQL-Server"
+    apt-get remove --purge mysql-server mysql-client mysql-common
+    apt-get autoremove
+    apt-get autoclean
+    deluser mysql
+    delgroup mysql
+    rm -rf /var/lib/mysql
+
+fi
+
 # (ZARAFA) INSERTING ZARAFA LICENSE
 echo "[ZARAFA] INSERTING LICENSE"
 echo ${LB_ZARAFA_LICENSE} > /etc/zarafa/license/base
