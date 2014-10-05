@@ -3,7 +3,6 @@ MAINTAINER Tobias Mandjik <webmaster@leckerbeef.de>
 
 # noninteractive Installation (dont't touch this)
 ENV DEBIAN_FRONTEND noninteractive
-ENV FIRSTRUN yes
 
 # Password Settings (root User and LDAP)
 ENV LB_ROOT_PASSWORD topSecret
@@ -32,6 +31,11 @@ ENV LB_RELAYHOST smtp.relayhost.com
 ENV LB_RELAYHOST_USERNAME FooMyAuthUser
 ENV LB_RELAYHOST_PASSWORD BarAuthPassword
 
+# SSL Settings
+ENV LB_SSL_COMPANY My Company Ltd.
+ENV LB_SSL_COUNTRY US
+ENV LB_SSL_LOCATION Springflied
+
 # Zarafa License (25 Digits)
 # uncommented if you have a commercial license
 #ENV LB_ZARAFA_LICENSE 12345123451234512345
@@ -47,11 +51,18 @@ ADD /config/postfix/ldap-users.cf /etc/postfix/ldap-users.cf
 ADD /config/postfix/main.cf /etc/postfix/main.cf
 ADD /config/postfix/master.cf /etc/postfix/master.cf
 ADD /config/ldap/ldap.ldif /usr/local/bin/ldap.ldif
+ADD /config/ldap/fetchmail.ldif /etc/ldap/schema/fetchmail.ldif
+ADD /config/ldap/fetchmail.schema /etc/ldap/schema/fetchmail.schema
 ADD /config/apache/z-push.conf /etc/apache2/sites-available/z-push.conf
+ADD /config/apache/default-ssl.conf /etc/apache2/sites-available/default-ssl.conf
+ADD /config/apache/000-default.conf /etc/apache2/sites-available/000-default.conf
 
-# Add init-Script
+# Add Scripts
 ADD /script/init.sh /usr/local/bin/init.sh
-RUN chmod 777 /usr/local/bin/init.sh
+ADD /script/fetchmail.sh /usr/local/bin/fetchmail.sh
+ADD /script/ssl-cert.sh /usr/local/bin/ssl-cert.sh
+
+RUN chmod 777 /usr/local/bin/init.sh /usr/local/bin/ssl-cert.sh
 RUN echo "yes" > /usr/local/bin/firstrun
 
 # Entry-Script

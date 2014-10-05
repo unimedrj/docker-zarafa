@@ -3,11 +3,17 @@ objectClass: organizationalUnit
 objectClass: top
 ou: Zarafa
 
-dn: uid=templateUser,ou=Zarafa,dc=REPLACE,dc=ME
+dn: ou=Templates,dc=REPLACE,dc=ME
+objectClass: organizationalUnit
+objectClass: top
+ou: Templates
+
+dn: uid=templateUser,ou=Templates,dc=REPLACE,dc=ME
 objectClass: posixAccount
 objectClass: top
 objectClass: zarafa-user
 objectClass: inetOrgPerson
+objectClass: fetchmail
 gidNumber: 1000
 cn: Template User
 homeDirectory: /dev/null
@@ -18,8 +24,23 @@ zarafaUserServer: Zarafa
 uid: templateuser
 zarafaAccount: 1
 zarafaAdmin: 1
-sn: ;andjik
+sn: Template Name
 userPassword:: YWJjZGU=
 zarafaQuotaOverride: 1
 zarafaEnabledFeatures: imap
 zarafaDisabledFeatures: pop3
+fetchmailUsername: templateUser
+fetchmailPassword: templatePass
+fetchmailEnabled: FALSE
+
+dn: cn=fetchmailDefaults,ou=Templates,dc=REPLACE,dc=ME
+cn: fetchmailDefaults
+sn: Fetchmail Default Values
+objectClass: inetOrgPerson
+objectClass: top
+objectClass: fetchmail
+fetchmailProtocol: pop3
+fetchmailSSL: TRUE
+fetchmailServer: pop.hotmail.com
+fetchmailCustom: nokeep fetchall
+

@@ -27,11 +27,11 @@ you should be able to...
   - access `zarafa` via `Outlook` (be sure you have installed `zarafaclient`)
   - access with your mobile device and ActiveSync (Port 80)
 
-## Roadmap ##
-  - add SSL-Support for Apache and Zarafa
-  - fix my startup workaround
+## Good to Know ##
+  - manage fetchmail settings via ldap, lookup howto [LECKERBEEFde/fetchmail-ldap][2]
+  - SSL certificates location is `/etc/ssl/zarafa/`
 
-## Developer Homepage ##
+## Developers Homepage ##
 
 View the articel on the developers homepage:
 
@@ -39,3 +39,4 @@ View the articel on the developers homepage:
 
 
   [1]: http://leckerbeef.de/posts/zarafa-docker-container
+  [2]: https://github.com/LECKERBEEFde/fetchmail-ldap

@@ -2,6 +2,8 @@
 function do_init() {
 
     # run init-Script
+    # ~~~~~~~~~~~~~~~
+
     /usr/local/bin/init.sh
     return 0
 
@@ -9,33 +11,47 @@ function do_init() {
 
 function do_start() {
 
-    # Start Services
-    service ssh start
-    service slapd start
-    service mysql start
-    service amavis start
-    service clamav-daemon start
-    service spamassassin start
-    service postfix start
-    service apache2 start
-    service cron start
+    # Define Services to start
+    # ~~~~~~~~~~~~~~~~~~~~~~~~
 
-    # Start Zarafa via init-Scripts
+    services="ssh slapd mysql amavis clamav-daemon spamassassin postfix apache2 cron"
+    for service in services; do
+        service $service status || service $service start
+    done
+
+    # Start Zarafa via /etc/init.d/
+    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
     for z in /etc/init.d/zarafa-*; do $z start; done
 
-    # Open bash
+    # Open Shell
+    # ~~~~~~~~~~
+
     /bin/bash
 
 }
 
+# Check if it's the first time
+# the Container got started
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+FIRSTRUN=$(cat /usr/local/bin/firstrun)
 echo "FIRSTRUN? ${FIRSTRUN}"
 
 case ${FIRSTRUN} in
     "yes")
+            # It's the first time, so we have to
+            # run the init-Script first
+            # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
             do_init
             do_start
     ;;
     "no")
+            # Otherwise start the Services and
+            # open a Shell
+            # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
             do_start
     ;;
 esac
