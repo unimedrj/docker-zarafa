@@ -38,5 +38,5 @@ View the articel on the developers homepage:
 [leckerbeef.de/posts/zarafa-docker-container][1]
 
 
-  [1]: http://leckerbeef.de/posts/zarafa-docker-container
+  [1]: http://leckerbeef.de/zarafa-docker-container-nearly-full-featured/
   [2]: https://github.com/LECKERBEEFde/fetchmail-ldap
