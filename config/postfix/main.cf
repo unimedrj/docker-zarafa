@@ -42,7 +42,7 @@ inet_interfaces = all
 # RELAYHOST
 relayhost = 
 smtp_sasl_auth_enable = yes
-smtp_sasl_password_maps = /etc/postfix/saslpass
+smtp_sasl_password_maps = hash:/etc/postfix/saslpass
 
 # NO LIMITS
 mailbox_size_limit = 0
