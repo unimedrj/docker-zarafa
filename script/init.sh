@@ -130,7 +130,7 @@
     sed -i -e 's/^virtual_mailbox_domains.*/virtual_mailbox_domains = '${LB_MAILDOMAIN}'/g' \
            -e 's/^myhostname.*/myhostname = '${HOSTNAME}'/g' \
            -e 's/^mydestination.*/mydestination = localhost, '${HOSTNAME}'/g' \
-           -e 's/^realyhost.*/relayhost = '${EBIS_RELAYHOST}'/g' \
+           -e 's/^realyhost.*/relayhost = '${LB_RELAYHOST}'/g' \
            /etc/postfix/main.cf
 
     # Generating File for SASL-Authentication
