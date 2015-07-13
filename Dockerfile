@@ -1,4 +1,4 @@
-FROM leckerbeef/zarafabase:latest
+FROM leckerbeef/zarafa-base:latest7.1
 MAINTAINER Tobias Mandjik <webmaster@leckerbeef.de>
 
 # noninteractive Installation (dont't touch this)
