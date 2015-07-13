@@ -1,5 +1,5 @@
 ## Zarafa Collaboration Platform ##
-This is an automated build from latest `leckerbeef/zarafabase`.
+This is an automated build from `leckerbeef/zarafabase:latest7.2`.
 
 ## Containing Software ##
   - `postfix` > Mail Transer Agent
