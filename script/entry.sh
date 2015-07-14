@@ -14,7 +14,7 @@ function do_start() {
     # Define Services to start
     # ~~~~~~~~~~~~~~~~~~~~~~~~
 
-    services="ssh slapd mysql amavis clamav-daemon spamassassin postfix apache2 cron"
+    services="rsyslog ssh slapd mysql amavis clamav-daemon spamassassin postfix apache2 cron"
     for s in ${services}; do service ${s} start; done
 
     # Start Zarafa via /etc/init.d/
