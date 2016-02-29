@@ -209,7 +209,7 @@
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     echo "[Z-PUSH] Downloading and installing Z-Push"
-    curl http://download.z-push.org/final/2.2/z-push-2.2.2-1981.tar.gz | tar -xz -C /usr/share/
+    curl http://download.z-push.org/final/2.2/z-push-2.2.8.tar.gz | tar -xz -C /usr/share/
 
     mv /usr/share/z-push-* /usr/share/z-push
     mkdir /var/lib/z-push /var/log/z-push
