@@ -45,7 +45,7 @@ ENV LB_SSL_LOCATION Springflied
 RUN DEBIAN_FRONTEND=noninteractive apt-get -q update && apt-get -yqq install \
 rsyslog curl ssh fetchmail postfix postfix-ldap amavisd-new clamav-daemon \
 spamassassin razor pyzor slapd ldap-utils phpldapadmin php5-cli php-soap \
-arj bzip2 cabextract cpio file gzip lhasa nomarch pax rar unrar ripole unzip \
+arj bzip2 cabextract cpio file gzip lhasa nomarch pax unrar-free ripole unzip \
 zip zoo
 
 # Add configuration files
