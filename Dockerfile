@@ -46,7 +46,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -q update && apt-get -yqq install \
 rsyslog curl ssh fetchmail postfix postfix-ldap amavisd-new clamav-daemon \
 spamassassin razor pyzor slapd ldap-utils phpldapadmin php5-cli php-soap \
 arj bzip2 cabextract cpio file gzip lhasa nomarch pax unrar-free ripole unzip \
-zip zoo
+zip zoo rpm2cpio lzop xzdec lzma
 
 # Add configuration files
 ADD /config/amavis/15-content_filter_mode /etc/amavis/conf.d/15-content_filter_mode
