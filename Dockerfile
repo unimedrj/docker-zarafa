@@ -75,12 +75,12 @@ ADD /script/entry.sh /usr/local/bin/entry.sh
 CMD ["/usr/local/bin/entry.sh"]
 
 # Expose Ports
-EXPOSE 10236 236
-EXPOSE 10237 237
-EXPOSE 10022 22
-EXPOSE 10080 80
-EXPOSE 10443 443
-EXPOSE 10389 389
+EXPOSE 236
+EXPOSE 237
+EXPOSE 22
+EXPOSE 80
+EXPOSE 443
+EXPOSE 389
 
 # Set Entrypoint
 ENTRYPOINT ["/bin/bash"]
