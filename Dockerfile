@@ -41,8 +41,12 @@ ENV LB_SSL_LOCATION Springflied
 # uncommented if you have a commercial license
 #ENV LB_ZARAFA_LICENSE 12345123451234512345
 
-# Install additional Software
-RUN DEBIAN_FRONTEND=noninteractive apt-get -q update && apt-get -yqq install rsyslog curl ssh fetchmail postfix postfix-ldap amavisd-new clamav-daemon spamassassin razor pyzor slapd ldap-utils phpldapadmin php5-cli php-soap
+# Install additional Software (+ decoders for amavis)
+RUN DEBIAN_FRONTEND=noninteractive apt-get -q update && apt-get -yqq install \
+rsyslog curl ssh fetchmail postfix postfix-ldap amavisd-new clamav-daemon \
+spamassassin razor pyzor slapd ldap-utils phpldapadmin php5-cli php-soap \
+arj bzip2 cabextract cpio file gzip lhasa nomarch pax rar unrar ripole unzip \
+zip zoo
 
 # Add configuration files
 ADD /config/amavis/15-content_filter_mode /etc/amavis/conf.d/15-content_filter_mode
