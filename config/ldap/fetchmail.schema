@@ -29,5 +29,5 @@ attributetype ( 1.3.6.1.4.1.44565.1.8 NAME ( 'fetchmailSSL' )
 
 objectClass ( 1.3.6.1.4.1.44565.2.1 NAME ( 'fetchmail' )
         SUP top AUXILIARY
-        MAY ( cn $ fetchmailUsername $ fetchmailPassword $ fetchmailServer $ fetchmailProtocol $ fetchmailCustom $ fetchmailSSL )
-        MUST ( fetchmailEnabled ))
+        MUST ( fetchmailEnabled )
+        MAY ( cn $ fetchmailUsername $ fetchmailPassword $ fetchmailServer $ fetchmailProtocol $ fetchmailCustom $ fetchmailSSL ))
