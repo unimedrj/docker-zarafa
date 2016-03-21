@@ -43,4 +43,5 @@ fetchmailProtocol: pop3
 fetchmailSSL: TRUE
 fetchmailServer: pop.hotmail.com
 fetchmailCustom: nokeep fetchall
+fetchmailEnabled: FALSE
 
